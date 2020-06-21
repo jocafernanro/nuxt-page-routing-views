@@ -1,0 +1,17 @@
+{
+  "name": "nuxt-page-routing-views",
+  "version": "1.0.0",
+  "description": "A simple nuxt project for practice purposes using pages, routings and views",
+  "author": "Jose Carlos Fernandez Rodriguez",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {}
+}
