@@ -8,34 +8,45 @@ const createStore = () => {
         mutations: {
             setPosts(state, posts) {
                 state.loadedPosts = posts
+            },
+            addPost(state, post) {
+                state.loadedPosts.push(post)
+            },
+            editPost(state, editedPost) {
+                const postIndex = state.loadedPosts.findIndex(post => post.id === editedPost.id)
+                state.loadedPosts[postIndex] = editedPost
             }
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        vuexContext.commit('setPosts', [
-                            {
-                                id: "1",
-                                title: "First Post",
-                                previewText: "This is our first post",
-                                thumbnail:
-                                    "https://images.idgesg.net/images/article/2019/05/cso_best_security_software_best_ideas_best_technology_lightbulb_on_horizon_of_circuit_board_landscape_with_abstract_digital_connective_technology_atmosphere_ideas_innovation_creativity_by_peshkov_gettyimages-965785212_3x2_2400x1600-100797318-large.jpg"
-                            },
-                            {
-                                id: "2",
-                                title: "Second Post",
-                                previewText: "This is our second post",
-                                thumbnail:
-                                    "https://images.idgesg.net/images/article/2019/05/cso_best_security_software_best_ideas_best_technology_lightbulb_on_horizon_of_circuit_board_landscape_with_abstract_digital_connective_technology_atmosphere_ideas_innovation_creativity_by_peshkov_gettyimages-965785212_3x2_2400x1600-100797318-large.jpg"
-                            }
-                        ])
-                        resolve();
-                    }, 1000);
-                })
+                return this.$axios.$get('https://nuxt-blog-a8d9d.firebaseio.com/posts.json')
+                    .then(res => {
+                        const postsArray = []
+                        for (const key in res) {
+                            postsArray.push({ ...res[key], id: key })
+                        }
+                        vuexContext.commit('setPosts', postsArray)
+                    })
+                    .catch(e => context.error(e))
             },
             setPosts(vuexContext, posts) {
                 vuexContext.commit('setPosts', posts)
+            },
+            addPost(vuexContext, post) {
+                const createdPost = { ...post, updatedDate: new Date() }
+                return this.$axios.$post('https://nuxt-blog-a8d9d.firebaseio.com/posts.json', createdPost)
+                    .then(result => {
+                        vuexContext.commit('addPost', { ...createdPost, id: result.name })
+                    })
+                    .catch(e => console.log(e))
+            },
+            editPost(vuexContext, editedPost) {
+                console.log(editedPost)
+                return this.$axios.$put(`https://nuxt-blog-a8d9d.firebaseio.com/posts/${editedPost.id}.json`, editedPost)
+                .then(res => {
+                    vuexContext.commit('editPost', editedPost)
+                } )
+                .catch(e => console.log(e))
             }
         },
         getters: {

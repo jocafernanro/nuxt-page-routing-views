@@ -16,27 +16,22 @@
         >jocafernanro@gmail.com</a>
       </p>
     </section>
-
   </div>
 </template>
 
 <script>
 export default {
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-        loadedPost: {
-          id: "1",
-          title: "First Post (ID: " + context.params.id + ")",
-          previewText: "This is our first post",
-          author: 'Joseca',
-          updatedDate: new Date(),
-          content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, voluptates! Labore sapiente optio temporibus enim quis quod omnis maiores! Modi fuga eius eum quos dolore corrupti amet molestias distinctio molestiae!',
-          thumbnail:
-            "https://images.idgesg.net/images/article/2019/05/cso_best_security_software_best_ideas_best_technology_lightbulb_on_horizon_of_circuit_board_landscape_with_abstract_digital_connective_technology_atmosphere_ideas_innovation_creativity_by_peshkov_gettyimages-965785212_3x2_2400x1600-100797318-large.jpg"
-        }
-      });
-    }, 1);
+  asyncData(context) {
+    return context.$axios
+      .$get(
+        `https://nuxt-blog-a8d9d.firebaseio.com/posts/${context.params.id}.json`
+      )
+      .then(res => {
+        return {
+          loadedPost: res
+        };
+      })
+      .catch(e => context.error(e));
   }
 };
 </script>
