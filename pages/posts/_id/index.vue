@@ -27,7 +27,7 @@ export default {
   asyncData(context) {
     return context.$axios
       .$get(
-        `https://nuxt-blog-a8d9d.firebaseio.com/posts/${context.params.id}.json`
+        `${process.env.baseUrl}/posts/${context.params.id}.json`
       )
       .then(res => {
         return {
