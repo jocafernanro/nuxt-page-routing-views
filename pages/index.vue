@@ -14,12 +14,6 @@ export default {
   components: {
     PostList
   },
-  // data() {
-  //   return {
-  //     loadedPosts: [
-  //     ]
-  //   };
-  // },
   asyncData(context, callback) {
     setTimeout(() => {
       callback(null, {
