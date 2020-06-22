@@ -21,6 +21,9 @@
 
 <script>
 export default {
+  head: {
+    title: 'A blog post'
+  },
   asyncData(context) {
     return context.$axios
       .$get(
