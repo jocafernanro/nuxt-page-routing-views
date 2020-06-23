@@ -1,6 +1,6 @@
 require('dotenv').config()
 export default {
-  
+
   mode: 'universal',
   /*
   ** Headers of the page
@@ -59,14 +59,18 @@ export default {
     }
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a8d9d.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a8d9d.firebaseio.com',
+    fbAPIKey: 'AIzaSyA1Bsxg-dOWWtRyEnaTzaJD1OSAm0tYCjA'
   },
   transition: {
     name: 'fade',
     mode: 'out-in'
-  }
+  },
   // srcDir: 'client-app/' //nuxt directories structure
   // router: {
   //   linkActiveClass: 'active'
+  // }
+  // router: {
+  //   middleware: 'log'
   // }
 }
