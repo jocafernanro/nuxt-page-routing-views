@@ -5,10 +5,7 @@
 </template>
 
 <script>
-import PostList from "@/components/Posts/PostList";
-
 export default {
-  components: { PostList },
   fetch(context) {
     if (context.store.state.loadedPosts.length > 0) {
       return null

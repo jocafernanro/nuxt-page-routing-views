@@ -1,5 +1,6 @@
-
+require('dotenv').config()
 export default {
+  
   mode: 'universal',
   /*
   ** Headers of the page
@@ -24,11 +25,14 @@ export default {
   ** Global CSS
   */
   css: [
+    '~assets/styles/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/core-components.js',
+    '~plugins/date-filter.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,6 +45,9 @@ export default {
   modules: [
     '@nuxtjs/axios',
   ],
+  axios: {
+    baseUrl: process.env.baseUrl
+  },
   /*
   ** Build configuration
   */
@@ -53,5 +60,13 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a8d9d.firebaseio.com'
+  },
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
   }
+  // srcDir: 'client-app/' //nuxt directories structure
+  // router: {
+  //   linkActiveClass: 'active'
+  // }
 }

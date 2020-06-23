@@ -19,7 +19,7 @@ const createStore = () => {
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
-                return this.$axios.$get(`${process.env.baseUrl}/posts.json`)
+                return context.app.$axios.$get(`${process.env.baseUrl}/posts.json`)
                     .then(res => {
                         const postsArray = []
                         for (const key in res) {
