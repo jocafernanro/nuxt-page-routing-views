@@ -1,4 +1,7 @@
+const bodyParser = require('body-parser')
 require('dotenv').config()
+
+
 export default {
 
   mode: 'universal',
@@ -73,4 +76,8 @@ export default {
   // router: {
   //   middleware: 'log'
   // }
+  serverMiddleware: [
+    bodyParser.json(),
+    '~/api'
+  ]
 }
